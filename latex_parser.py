@@ -23,6 +23,7 @@ class LatexParser:
         self.doc.packages.append(Package('xcolor'))
         self.doc.packages.append(Package('minted'))
         self.doc.packages.append(Package('pdflscape'))
+        self.doc.packages.append(Package('amsmath'))
         self.doc.packages.append(Package('titlesec'))
         self.doc.packages.append(Package('geometry', NoEscape(r"a4paper, total={7.5in, 11.3in}")))
         self.doc.append(NoEscape(r"""
