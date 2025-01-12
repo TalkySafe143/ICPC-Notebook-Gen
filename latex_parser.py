@@ -1,5 +1,5 @@
 import os
-from pylatex import Document, Package, UnsafeCommand
+from pylatex import Document, Package 
 from pylatex.base_classes import Arguments, Options, CommandBase
 from pylatex.utils import NoEscape
 
@@ -101,7 +101,7 @@ class LatexParser:
                 self.parseFiles(os.getcwd(), getAllGitIgnores())
 
     def parseFiles(self, startpath : str, vis):
-        for root, dirs, files in os.walk(startpath):
+        for root, _, files in os.walk(startpath):
             good = True
             for d in root.split(os.sep):
                 if vis[d]:
