@@ -24,8 +24,10 @@ class LatexParser:
         self.doc.packages.append(Package('minted'))
         self.doc.packages.append(Package('pdflscape'))
         self.doc.packages.append(Package('amsmath'))
+        self.doc.packages.append(Package('fancyhdr'))
         self.doc.packages.append(Package('titlesec'))
-        self.doc.packages.append(Package('geometry', NoEscape(r"a4paper, total={7.5in, 11.3in}")))
+        self.doc.packages.append(Package('geometry', NoEscape(r"a4paper, top=1cm, bottom=1.5cm, left=1.2cm, right=1.2cm")))
+        # self.doc.packages.append(Package('geometry', NoEscape(r"a4paper, total={7.5in, 11.3in}")))
         self.doc.append(NoEscape(r"""
             \titleformat%
                 {\chapter}% command to format
@@ -88,16 +90,18 @@ class LatexParser:
                         \end{center}
                     \end{titlepage}
                     \let\cleardoublepage\relax
+                    \pagestyle{plain}
                     \pagenumbering{arabic}
                     \large
                     \setlength{\columnseprule}{0.5pt}
                     """
                 )
             )
+            self.doc.append(NoEscape(r'\setcounter{tocdepth}{2}'))  # mostrar hasta subsecciones
+            self.doc.append(NoEscape(r'\tableofcontents'))
+            self.doc.append(NoEscape(r'\clearpage'))
+
             with self.doc.create(Multicols(arguments="2")):
-                table = CommandBase()
-                table._latex_name = "tableofcontents"
-                self.doc.append(table)
                 self.parseFiles(os.getcwd(), getAllGitIgnores())
 
     def parseFiles(self, startpath : str, vis):
